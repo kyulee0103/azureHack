@@ -2,6 +2,8 @@ import ChatHeader from '../Components/ChatPage/ChatHeader'
 import styled from 'styled-components'
 import Sending from '../assets/send.png'
 import {useState} from 'react'
+import {useLocation} from 'react-router-dom'
+import axios from 'axios'
 
 const MyAnswer = styled.div`
     display: flex;
@@ -79,6 +81,8 @@ const Send = styled.div`
 
 function Chat() {
     const [msg, setMsg] = useState('')
+    const location = useLocation()
+    const CHAT_ID = location.state.chatId
     type Msg = {data: string; time: any}
     const [msgList, setMsgList] = useState<Msg[]>([])
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,15 +93,33 @@ function Chat() {
         e.preventDefault()
         const date = new Date()
         let hour = date.getHours()
-        const min = date.getMinutes()
+        let min = date.getMinutes().toString()
         let dayOrNight = 'am'
         if (hour > 12) {
             hour -= 12
             dayOrNight = 'pm'
         }
+        if (min.length < 2) {
+            min = '0' + min.toString()
+        }
         setMsgList([...msgList, {data: msg, time: `${hour}:${min} ${dayOrNight}`}])
         setMsg('')
         console.log('msgList : ', msgList)
+        axios({
+            method: 'post',
+            url: 'http://43.201.208.224:3000/chat',
+            data: {
+                chatRoomId: CHAT_ID,
+                input: msg,
+            },
+        })
+            .then(function (response) {
+                console.log('chat response : ', response)
+            })
+            .catch(function (e) {
+                console.log('this is error!')
+                console.log(e)
+            })
     }
 
     return (

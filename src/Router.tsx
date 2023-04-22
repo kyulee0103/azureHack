@@ -3,6 +3,8 @@ import App from './App'
 import Main from './Pages/Main'
 import NotFound from './Pages/NotFound'
 import Chat from './Pages/Chat'
+import Login from './Pages/Login/Login'
+import KaKaoLogin from './Pages/Login/KaKaoLogin'
 
 const router = createBrowserRouter([
     {
@@ -12,6 +14,14 @@ const router = createBrowserRouter([
             {
                 path: '',
                 element: <Main />,
+            },
+            {
+                path: '/login',
+                element: <Login />,
+            },
+            {
+                path: '/kakaoLogin',
+                element: <KaKaoLogin />,
             },
             {
                 path: 'chat',
