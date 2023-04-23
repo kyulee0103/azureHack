@@ -4,6 +4,9 @@ import Sending from '../assets/send.png'
 import {useEffect, useRef, useState} from 'react'
 import {useLocation} from 'react-router-dom'
 import axios from 'axios'
+import Lottie from 'lottie-react'
+import waitGPT from '../assets/64108-loading-dots.json'
+import writing from '../assets/94683-loading-dots.json'
 
 const Total = styled.div`
     overflow: hidden;
@@ -35,6 +38,12 @@ const Purple = styled.div`
         color: #ffffff;
         margin: 0;
     }
+`
+
+const Purple2 = styled.div`
+    background-color: ${({theme}) => theme.color.main};
+    border-radius: 30px 30px 3px 30px;
+    padding: 6px;
 `
 const Response = styled.div``
 const Time = styled.p`
@@ -103,15 +112,23 @@ const Grey = styled.div`
         margin: 0;
     }
 `
+const Grey2 = styled.div`
+    background: #efefef;
+    border-radius: 30px 30px 30px 3px;
+    padding: 6px;
+`
 
 type Msg = {data: string; time: any; res: boolean}
 
 function Chat() {
     const [msg, setMsg] = useState('')
+    const [wait, setWait] = useState(false)
+    const [write, setWrite] = useState(false)
     const location = useLocation()
     const CHAT_ID = location.state.chatId
     const [msgList, setMsgList] = useState<Msg[]>([])
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setWrite(true)
         setMsg(e.target.value)
     }
 
@@ -128,10 +145,11 @@ function Chat() {
         if (min.length < 2) {
             min = '0' + min.toString()
         }
+        setWrite(false)
         setMsgList((prevMsgList) => [...prevMsgList, {data: msg, time: `${hour}:${min} ${dayOrNight}`, res: false}])
         setMsg('')
         setTimeout(() => {
-            setMsgList((prevMsgList) => [...prevMsgList, {data: '...', time: '고민중...', res: true}])
+            setWait(true)
         }, 500)
 
         axios({
@@ -143,9 +161,11 @@ function Chat() {
             },
         })
             .then(function (response) {
+                console.log(response)
+                setWait(false)
                 setMsgList((prevMsgList) => [
-                    ...prevMsgList.slice(0, -1),
-                    {data: response.data, time: `${hour}:${min} ${dayOrNight}`, res: true},
+                    ...prevMsgList,
+                    {data: response.data.data, time: `${hour}:${min} ${dayOrNight}`, res: true},
                 ])
             })
             .catch(function (e) {
@@ -182,6 +202,22 @@ function Chat() {
                             </MyAnswer>
                         )
                     })}
+                {write && (
+                    <MyAnswer>
+                        <Purple2>
+                            <Lottie animationData={writing} loop={true} style={{width: '40px', height: '40px'}} />
+                        </Purple2>
+                        <Time>작성중...</Time>
+                    </MyAnswer>
+                )}
+                {wait && (
+                    <ChatBot>
+                        <Grey2>
+                            <Lottie animationData={waitGPT} loop={true} style={{width: '40px', height: '40px'}} />
+                        </Grey2>
+                        <Time>고민중...</Time>
+                    </ChatBot>
+                )}
             </ChatBox>
             <Write autoComplete="off" onSubmit={onSubmit}>
                 <Input placeholder="Send a message..." value={msg} onChange={onChange} />
