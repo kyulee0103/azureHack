@@ -1,9 +1,13 @@
 import ChatHeader from '../Components/ChatPage/ChatHeader'
 import styled from 'styled-components'
 import Sending from '../assets/send.png'
-import {useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {useLocation} from 'react-router-dom'
 import axios from 'axios'
+
+const Total = styled.div`
+    overflow: hidden;
+`
 
 const MyAnswer = styled.div`
     display: flex;
@@ -20,8 +24,8 @@ const ChatBox = styled.div`
     margin-bottom: 10vh;
 `
 const Purple = styled.div`
-    background-color: #c571f8;
-    border-radius: 15px 15px 5px 15px;
+    background-color: ${({theme}) => theme.color.main};
+    border-radius: 30px 30px 3px 30px;
     padding: 16px;
     display: inline-block;
     p {
@@ -68,7 +72,7 @@ const Input = styled.input`
 const Send = styled.div`
     width: 40px;
     height: 40px;
-    background-color: #c571f8;
+    background-color: ${({theme}) => theme.color.main};
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -79,11 +83,33 @@ const Send = styled.div`
     }
 `
 
+const ChatBot = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`
+const Grey = styled.div`
+    background: #efefef;
+    border-radius: 30px 30px 30px 3px;
+    padding: 16px;
+    display: inline-block;
+    p {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        color: #29363d;
+        margin: 0;
+    }
+`
+
+type Msg = {data: string; time: any; res: boolean}
+
 function Chat() {
     const [msg, setMsg] = useState('')
     const location = useLocation()
     const CHAT_ID = location.state.chatId
-    type Msg = {data: string; time: any}
     const [msgList, setMsgList] = useState<Msg[]>([])
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMsg(e.target.value)
@@ -102,9 +128,12 @@ function Chat() {
         if (min.length < 2) {
             min = '0' + min.toString()
         }
-        setMsgList([...msgList, {data: msg, time: `${hour}:${min} ${dayOrNight}`}])
+        setMsgList((prevMsgList) => [...prevMsgList, {data: msg, time: `${hour}:${min} ${dayOrNight}`, res: false}])
         setMsg('')
-        console.log('msgList : ', msgList)
+        setTimeout(() => {
+            setMsgList((prevMsgList) => [...prevMsgList, {data: '...', time: '고민중...', res: true}])
+        }, 500)
+
         axios({
             method: 'post',
             url: 'http://43.201.208.224:3000/chat',
@@ -114,39 +143,53 @@ function Chat() {
             },
         })
             .then(function (response) {
-                console.log('chat response : ', response)
+                setMsgList((prevMsgList) => [
+                    ...prevMsgList.slice(0, -1),
+                    {data: response.data, time: `${hour}:${min} ${dayOrNight}`, res: true},
+                ])
             })
             .catch(function (e) {
                 console.log('this is error!')
                 console.log(e)
             })
     }
+    const scrollRef = useRef<HTMLDivElement>(null)
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+        }
+    })
 
     return (
-        <>
-            <ChatHeader name="ai 이름" />
-            <ChatBox>
+        <Total>
+            <ChatHeader name="블럭이" />
+            <ChatBox ref={scrollRef}>
                 {msgList.length >= 1 &&
                     msgList.map((message, idx) => {
-                        return (
-                            <>
-                                <MyAnswer key={idx}>
-                                    <Purple key={idx}>
-                                        <p>{message.data}</p>
-                                    </Purple>
-                                    <Time>{message.time}</Time>
-                                </MyAnswer>
-                            </>
+                        return message.res ? (
+                            <ChatBot key={idx}>
+                                <Grey>
+                                    <p>{message.data}</p>
+                                </Grey>
+                                <Time>{message.time}</Time>
+                            </ChatBot>
+                        ) : (
+                            <MyAnswer key={idx}>
+                                <Purple key={idx}>
+                                    <p>{message.data}</p>
+                                </Purple>
+                                <Time>{message.time}</Time>
+                            </MyAnswer>
                         )
                     })}
             </ChatBox>
             <Write autoComplete="off" onSubmit={onSubmit}>
                 <Input placeholder="Send a message..." value={msg} onChange={onChange} />
-                <Send>
+                <Send onClick={onSubmit}>
                     <img src={Sending} />
                 </Send>
             </Write>
-        </>
+        </Total>
     )
 }
 

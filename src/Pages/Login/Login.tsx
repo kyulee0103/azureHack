@@ -5,27 +5,28 @@ import BPW from '../../assets/lockBefore.svg'
 import BID from '../../assets/userBefore.svg'
 import {useState} from 'react'
 import Kakao from '../../assets/kakao_login_large_wide.png'
+import {useNavigate} from 'react-router-dom'
+import Header from '../../Components/Header'
 
 const Title = styled.div`
-    margin-top: 32px;
-    height: 52px;
+    /* margin-top: 32px; */
     margin-bottom: 32px;
     p {
-        margin-top: 64px;
+        color: ${({theme}) => theme.color.main};
+        /* margin-top: 64px; */
         text-align: center;
         font-weight: 600;
-        font-size: 24px;
+        font-size: 26px;
     }
 `
 
 const Middle = styled.div`
-    height: 72px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     p {
         font-weight: 500;
-        margin-top: 22px;
         text-align: center;
         font-size: 20px;
+        margin-bottom: 40px;
         color: rgba(0, 0, 0, 0.5);
     }
 `
@@ -41,13 +42,16 @@ const LoginBox = styled.div`
     input {
         background: rgba(0, 0, 0, 0.05);
         border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
+        border-radius: 99px;
         width: ${window.innerWidth - 110}px;
         height: 48px;
         padding: 0px 24px;
         font-size: 16px;
         &::placeholder {
             font-size: 16px;
+        }
+        &:focus {
+            outline: 2px solid ${({theme}) => theme.color.main};
         }
     }
     img {
@@ -59,22 +63,37 @@ const LoginBox = styled.div`
 const Btn = styled.div`
     text-align: center;
     button {
-        background: #606060;
-        border-radius: 5px;
+        background: ${({theme}) => theme.color.main};
+        border-radius: 99px;
         border: 0px;
-        height: 48px;
+        height: 60px;
         width: 100%;
         color: #ffffff;
         font-weight: 700;
         font-size: 20px;
-        margin-top: 50px;
+        margin-top: 30px;
+    }
+`
+const Btn2 = styled.div`
+    text-align: center;
+    margin: 0px 30px 20px 30px;
+    padding-bottom: 62px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    button {
+        background: white;
+        border-radius: 99px;
+        border: 1px solid ${({theme}) => theme.color.main};
+        height: 60px;
+        width: 100%;
+        color: ${({theme}) => theme.color.main};
+        font-weight: 700;
+        font-size: 20px;
+        margin-top: 24px;
     }
 `
 
 const KaKao = styled.div`
-    margin-left: 30px;
-    margin-top: 20px;
-    margin-right: 30px;
+    margin: 20px 30px;
     img {
         width: 100%;
     }
@@ -116,6 +135,7 @@ const Mid = styled.div`
 function Login() {
     const [id, setID] = useState('')
     const [pw, setPW] = useState('')
+    const navigate = useNavigate()
 
     const onChangeID = (e: React.ChangeEvent<HTMLInputElement>) => {
         setID(e.target.value)
@@ -131,14 +151,19 @@ function Login() {
         setID('')
         setPW('')
     }
+
+    const onClickSignUp = () => {
+        navigate('/signUP')
+    }
     return (
         <>
-            <Title>
+            {/* <Title>
                 <p>BLUCK</p>
-            </Title>
-            {/* <Middle>
+            </Title> */}
+            <Header name="로그인" xExist={false} path="/" />
+            <Middle>
                 <p>로그인이 필요해 :)</p>
-            </Middle> */}
+            </Middle>
             <Form onSubmit={onSubmit}>
                 <LoginBox>
                     <input value={id} placeholder="아이디" onChange={onChangeID} />
@@ -152,7 +177,10 @@ function Login() {
                     {id === '' || pw === '' ? <button disabled>로그인</button> : <button type="submit">로그인</button>}
                 </Btn>
             </Form>
-            <Small>
+            <Btn2>
+                <button onClick={onClickSignUp}>회원가입</button>
+            </Btn2>
+            {/* <Small>
                 <Word>
                     <span>회원가입</span>
                 </Word>
@@ -162,7 +190,7 @@ function Login() {
                 <Word>
                     <span>비밀번호 찾기</span>
                 </Word>
-            </Small>
+            </Small> */}
             <Word>
                 <span>간편 로그인</span>
             </Word>

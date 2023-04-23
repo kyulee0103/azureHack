@@ -12,7 +12,7 @@ function Main() {
         })
             .then(function (response) {
                 console.log(response)
-                navigate('Chat', {state: {chatId: response.data._id}})
+                navigate('/chat', {state: {chatId: response.data._id}})
             })
             .catch(function (error) {
                 console.log(error)
