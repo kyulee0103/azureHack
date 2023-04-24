@@ -20,8 +20,8 @@ const LoginBox = styled.div`
 `
 
 function Hello() {
-    const REST_API_KEY = '083a375f318d14c7d6a21ea97f7fad1b'
-    const REDIRECT_URI = 'https://azure-hack.vercel.app/kakaoLogin'
+    const REST_API_KEY = 'a82251b4020b624e88317d3bc4d37c63'
+    const REDIRECT_URI = 'http://43.201.208.224:3000/auth/kakao/callback'
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
     console.log(KAKAO_AUTH_URL)
     const kakaoLogin = () => {

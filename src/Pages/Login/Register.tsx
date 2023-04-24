@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import Header from '../../Components/Header'
 import styled from 'styled-components'
+import axios from 'axios'
+import {useCookies} from 'react-cookie'
 
 const Box = styled.div`
     display: flex;
@@ -132,6 +134,9 @@ const Contents = styled.div`
 
 function Register() {
     const [nickname, setNickName] = useState('')
+    const [cookies, setCookie] = useCookies(['token'])
+    console.log(cookies)
+
     const [gender, setGender] = useState<string>()
     const [grade, setGrade] = useState<number>()
 
@@ -145,10 +150,32 @@ function Register() {
     const onClickGrade = (grade: number) => {
         setGrade(grade)
     }
+    const onSubmit = (e: React.SyntheticEvent) => {
+        e.preventDefault()
+        axios({
+            method: 'put',
+            url: 'http://43.201.208.224:3000/user/profile',
+            data: {
+                name: 'janghan',
+                phone: '123-456-789',
+                birthday: '02-01-03',
+                mbti: '나도몰라',
+                gender: 'male',
+                school: '한국대학교',
+                grade: 3,
+            },
+        })
+            .then(function (response) {
+                console.log(response)
+            })
+            .then(function (error) {
+                console.log(error)
+            })
+    }
     return (
         <>
             <Header name="회원 정보 입력" xExist={false} path1="" path2="" backExist={false} />
-            <Form autoComplete="off">
+            <Form autoComplete="off" onSubmit={onSubmit}>
                 <Contents>
                     <Box>
                         <Name htmlFor="nickname">닉네임</Name>
@@ -229,7 +256,7 @@ function Register() {
                         </Line>
                     </Box>
                 </Contents>
-                {0 ? (
+                {1 ? (
                     <Btn type="submit">
                         <p>완료!</p>
                     </Btn>
