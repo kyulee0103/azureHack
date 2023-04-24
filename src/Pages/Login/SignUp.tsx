@@ -37,7 +37,7 @@ const Input = styled.input`
     border: 0px;
     width: 100%;
     &:focus {
-        outline: 2px solid ${({theme}) => theme.color.main};
+        outline: 2px solid ${({theme}: any) => theme.color.main};
     }
     &::placeholder {
         color: #00000026;
@@ -47,7 +47,7 @@ const Btn = styled.button`
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: ${({theme}) => theme.color.main};
+    background-color: ${({theme}: any) => theme.color.main};
     height: 60px;
     display: flex;
     justify-content: center;

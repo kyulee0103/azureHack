@@ -27,7 +27,7 @@ const ChatBox = styled.div`
     margin-bottom: 10vh;
 `
 const Purple = styled.div`
-    background-color: ${({theme}) => theme.color.main};
+    background-color: ${({theme}: any) => theme.color.main};
     border-radius: 30px 30px 3px 30px;
     padding: 16px;
     display: inline-block;
@@ -41,7 +41,7 @@ const Purple = styled.div`
 `
 
 const Purple2 = styled.div`
-    background-color: ${({theme}) => theme.color.main};
+    background-color: ${({theme}: any) => theme.color.main};
     border-radius: 30px 30px 3px 30px;
     padding: 6px;
 `
@@ -93,7 +93,7 @@ const Input = styled.input`
 const Send = styled.div`
     width: 40px;
     height: 40px;
-    background-color: ${({theme}) => theme.color.main};
+    background-color: ${({theme}: any) => theme.color.main};
     border-radius: 10px;
     display: flex;
     justify-content: center;

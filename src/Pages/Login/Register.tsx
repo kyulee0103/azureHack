@@ -21,7 +21,7 @@ const Btn = styled.button`
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: ${({theme}) => theme.color.main};
+    background-color: ${({theme}: any) => theme.color.main};
     height: 60px;
     display: flex;
     justify-content: center;
@@ -67,10 +67,8 @@ const Input = styled.input`
     border: 0px;
     width: 100%;
     &:focus {
-        /* outline: 2px solid ${({theme}) => theme.color.main};
-        border-radius: 99px; */
         outline: 0;
-        border: 2px solid ${({theme}) => theme.color.main};
+        border: 2px solid ${({theme}: any) => theme.color.main};
     }
     &::placeholder {
         color: #00000026;
@@ -104,7 +102,7 @@ const Clicked = styled.div`
     height: 44px;
     display: flex;
     justify-content: center;
-    background-color: ${({theme}) => theme.color.sub};
+    background-color: ${({theme}: any) => theme.color.sub};
     align-items: center;
     p {
         color: #000000;

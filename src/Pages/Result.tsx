@@ -23,7 +23,7 @@ const Charteristic = styled.div`
     justify-content: center;
     align-items: center;
     padding: 10px;
-    color: ${(props) => props.color};
+    color: ${(props: any) => props.color};
     padding-bottom: 5px;
     width: 120px;
 `

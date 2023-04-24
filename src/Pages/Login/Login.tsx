@@ -12,7 +12,7 @@ const Title = styled.div`
     /* margin-top: 32px; */
     margin-bottom: 32px;
     p {
-        color: ${({theme}) => theme.color.main};
+        color: ${({theme}: any) => theme.color.main};
         /* margin-top: 64px; */
         text-align: center;
         font-weight: 600;
@@ -51,7 +51,7 @@ const LoginBox = styled.div`
             font-size: 16px;
         }
         &:focus {
-            outline: 2px solid ${({theme}) => theme.color.main};
+            outline: 2px solid ${({theme}: any) => theme.color.main};
         }
     }
     img {
@@ -63,7 +63,7 @@ const LoginBox = styled.div`
 const Btn = styled.div`
     text-align: center;
     button {
-        background: ${({theme}) => theme.color.main};
+        background: ${({theme}: any) => theme.color.main};
         border-radius: 99px;
         border: 0px;
         height: 60px;
@@ -82,10 +82,10 @@ const Btn2 = styled.div`
     button {
         background: white;
         border-radius: 99px;
-        border: 1px solid ${({theme}) => theme.color.main};
+        border: 1px solid ${({theme}: any) => theme.color.main};
         height: 60px;
         width: 100%;
-        color: ${({theme}) => theme.color.main};
+        color: ${({theme}: any) => theme.color.main};
         font-weight: 700;
         font-size: 20px;
         margin-top: 24px;
