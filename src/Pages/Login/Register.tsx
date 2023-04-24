@@ -135,10 +135,7 @@ const Contents = styled.div`
 function Register() {
     const [nickname, setNickName] = useState('')
     const [gender, setGender] = useState<string>()
-    const [mbti, setMBTI] = useState<string>()
-    const [school, setSchool] = useState('')
     const [grade, setGrade] = useState<number>()
-    const [phone, setPhone] = useState<number>()
 
     const onChangeNickName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNickName(e.target.value)

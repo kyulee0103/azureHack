@@ -3,6 +3,6 @@ const color = {
     sub: 'rgba(0, 102, 255, 0.25);',
 }
 
-export type Color = keyof typeof color
+const colors = {color}
 
-export default {color}
+export default colors

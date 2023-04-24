@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components'
+import styled from 'styled-components'
 import Union from '../assets/Union.svg'
 import Open from '../assets/hello.png'
 import Smile from '../assets/smile.png'
@@ -6,24 +6,6 @@ import Smile from '../assets/smile.png'
 const Total = styled.div`
     position: relative;
 `
-
-// const typing = keyframes`
-//   from {
-//     width: 0;
-//   }
-//   to {
-//     width: 100%;
-//   }
-// `
-
-// const blink = keyframes`
-//   from, to {
-//     border-color: transparent;
-//   }
-//   50% {
-//     border-color: #0066ff;
-//   }
-// `
 
 const Box = styled.div`
     position: relative;
@@ -99,7 +81,7 @@ const Say: React.FC<SayProps> = ({line1, line2, num, eyes, under}) => {
         <>
             <Total>
                 <Box>
-                    <img src={Union} />
+                    <img src={Union} alt="" />
 
                     <p>{line1}</p>
                     {num && <p>{line2}</p>}
@@ -108,7 +90,7 @@ const Say: React.FC<SayProps> = ({line1, line2, num, eyes, under}) => {
                     <p>블럭이</p>
                 </Name>
             </Total>
-            <Img>{eyes ? <img src={Open} /> : <img src={Smile} />}</Img>
+            <Img>{eyes ? <img src={Open} alt="" /> : <img src={Smile} alt="" />}</Img>
             <Under>
                 <p>{under}</p>
             </Under>

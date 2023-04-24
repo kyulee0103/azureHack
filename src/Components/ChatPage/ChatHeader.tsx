@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Avatar from '../../assets/Avatar.png'
+// import Avatar from '../../assets/Avatar.png'
 import Options from '../../assets/Options.png'
 import Back from '../../assets/Back.png'
 import {useNavigate} from 'react-router-dom'
@@ -16,13 +16,6 @@ const Total = styled.div`
     background-color: white;
 `
 
-const Right = styled.div`
-    img {
-        width: 24px;
-        height: 24px;
-    }
-    margin-right: 20px;
-`
 const GoBack = styled.div`
     img {
         width: 30px;
@@ -62,11 +55,11 @@ function ChatHeader(props: any) {
     return (
         <Total>
             <GoBack onClick={onClick}>
-                <img src={Back} />
+                <img src={Back} alt="" />
             </GoBack>
             <Name>{props.name}</Name>
             <Option>
-                <img src={Options} />
+                <img src={Options} alt="" />
             </Option>
         </Total>
     )

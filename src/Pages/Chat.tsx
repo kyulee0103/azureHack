@@ -45,7 +45,7 @@ const Purple2 = styled.div`
     border-radius: 30px 30px 3px 30px;
     padding: 6px;
 `
-const Response = styled.div``
+// const Response = styled.div``
 const Time = styled.p`
     margin-top: 5px;
     margin-bottom: 0;
@@ -249,14 +249,14 @@ function Chat() {
                 <Write2>
                     <Input placeholder="답장을 고민하고 있어...!" disabled />
                     <Send2>
-                        <img src={Sending} />
+                        <img src={Sending} alt="" />
                     </Send2>
                 </Write2>
             ) : (
                 <Write autoComplete="off" onSubmit={onSubmit}>
                     <Input placeholder="여기에 답장해줘!" value={msg} onChange={onChange} />
                     <Send onClick={onSubmit}>
-                        <img src={Sending} />
+                        <img src={Sending} alt="" />
                     </Send>
                 </Write>
             )}

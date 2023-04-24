@@ -1,4 +1,3 @@
-import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import Say from '../Components/Say'
 import KaKao from '../assets/kakao_login_large_wide.png'
@@ -21,7 +20,6 @@ const LoginBox = styled.div`
 `
 
 function Hello() {
-    const navigate = useNavigate()
     const onClick = () => {
         axios({
             method: 'get',
@@ -47,7 +45,7 @@ function Hello() {
                 under="3초컷 나의 미래 스포당하기"
             />
             <LoginBox onClick={onClick}>
-                <img src={KaKao} />
+                <img src={KaKao} alt="" />
             </LoginBox>
         </>
     )
