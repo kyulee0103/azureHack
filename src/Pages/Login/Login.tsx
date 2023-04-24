@@ -160,7 +160,7 @@ function Login() {
             {/* <Title>
                 <p>BLUCK</p>
             </Title> */}
-            <Header name="로그인" xExist={false} path="/" />
+            <Header backExist={true} name="로그인" xExist={false} path1="/" path2="/" />
             <Middle>
                 <p>로그인이 필요해 :)</p>
             </Middle>

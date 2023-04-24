@@ -19,8 +19,8 @@ const Box = styled.div`
 const Test = styled.div`
     background: #0066ff;
     border-radius: 99px 99px 20px 99px;
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,8 +34,8 @@ const MyPage = styled.div`
     border: 1px solid #0066ff;
     border-radius: 5px 5px 5px 60px;
     background: #ffffff;
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,7 +46,7 @@ const MyPage = styled.div`
     }
 `
 
-function Main() {
+function Again() {
     const navigate = useNavigate()
 
     const onClick = () => {
@@ -68,7 +68,7 @@ function Main() {
             <Title>
                 <p>BLUCK</p>
             </Title>
-            <Say line1="짝짝짝))" line2="이제 준비는 끝났어!" num={true} eyes={false} under="나랑 얘기해볼래?" />
+            <Say line1="안녕  또 와줬구나!" line2=" " num={true} eyes={false} under="결과물을 확인해봐!" />
             {/* <button onClick={onClick}>채팅 시작하기</button> */}
             <Box>
                 <Test onClick={onClick}>
@@ -82,4 +82,4 @@ function Main() {
     )
 }
 
-export default Main
+export default Again

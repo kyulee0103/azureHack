@@ -7,6 +7,9 @@ import Login from './Pages/Login/Login'
 import KaKaoLogin from './Pages/Login/KaKaoLogin'
 import SignUp from './Pages/Login/SignUp'
 import Hello from './Pages/Hello'
+import Again from './Pages/Again'
+import Register from './Pages/Login/Register'
+import Result from './Pages/Result'
 
 const router = createBrowserRouter([
     {
@@ -19,17 +22,24 @@ const router = createBrowserRouter([
                 element: <Main />,
             },
             {
-                path: '/login',
-                element: <Login />,
+                path: 'home',
+                element: <Again />,
+            },
+            {
+                path: 'register',
+                element: <Register />,
             },
             {
                 path: '/kakaoLogin',
                 element: <KaKaoLogin />,
             },
-            {path: '/signup', element: <SignUp />},
             {
                 path: '/chat',
                 element: <Chat />,
+            },
+            {
+                path: '/result',
+                element: <Result />,
             },
         ],
         errorElement: <NotFound />,

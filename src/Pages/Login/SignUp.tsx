@@ -144,7 +144,7 @@ function SignUp() {
 
     return (
         <>
-            <Header name="회원가입" xExist={true} path="/login" />
+            <Header backExist={true} name="회원가입" xExist={true} path1="/login" path2="/login" />
             <Middle>
                 <p>회원가입하고 채팅을 시작해봐!</p>
             </Middle>

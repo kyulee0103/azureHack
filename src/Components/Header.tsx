@@ -31,18 +31,20 @@ const Blank = styled.div`
 
 type HeaderProps = {
     name: string
+    backExist: boolean
     xExist: boolean
-    path: string
+    path1: string
+    path2: string
 }
 
-const Header: React.FC<HeaderProps> = ({name, xExist, path}) => {
+const Header: React.FC<HeaderProps> = ({name, backExist, xExist, path1, path2}) => {
     const navigate = useNavigate()
     return (
         <>
             <Total>
-                <Back onClick={() => navigate(-1)} src={back}></Back>
+                {backExist ? <Back onClick={() => navigate(path1)} src={back}></Back> : <Blank></Blank>}
                 <p>{name}</p>
-                {xExist ? <X onClick={() => navigate(path)} src={x}></X> : <Blank></Blank>}
+                {xExist ? <X onClick={() => navigate(path2)} src={x}></X> : <Blank></Blank>}
             </Total>
         </>
     )

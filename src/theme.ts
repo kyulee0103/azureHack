@@ -1,6 +1,6 @@
 const color = {
     main: '#0066FF',
-    sub: '#D9D9D9',
+    sub: 'rgba(0, 102, 255, 0.25);',
 }
 
 export type Color = keyof typeof color

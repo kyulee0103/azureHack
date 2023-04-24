@@ -65,6 +65,18 @@ const Write = styled.form`
     width: 100%;
     border: 0;
 `
+
+const Write2 = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: rgb(242, 242, 242);
+    height: 75px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border: 0;
+`
 const Input = styled.input`
     border-radius: 10px;
     background-color: #ffffff;
@@ -82,6 +94,20 @@ const Send = styled.div`
     width: 40px;
     height: 40px;
     background-color: ${({theme}) => theme.color.main};
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 20px;
+        height: 20px;
+    }
+`
+
+const Send2 = styled.div`
+    width: 40px;
+    height: 40px;
+    background-color: rgba(96, 96, 96, 0.15);
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -219,12 +245,21 @@ function Chat() {
                     </ChatBot>
                 )}
             </ChatBox>
-            <Write autoComplete="off" onSubmit={onSubmit}>
-                <Input placeholder="Send a message..." value={msg} onChange={onChange} />
-                <Send onClick={onSubmit}>
-                    <img src={Sending} />
-                </Send>
-            </Write>
+            {wait ? (
+                <Write2>
+                    <Input placeholder="답장을 고민하고 있어...!" disabled />
+                    <Send2>
+                        <img src={Sending} />
+                    </Send2>
+                </Write2>
+            ) : (
+                <Write autoComplete="off" onSubmit={onSubmit}>
+                    <Input placeholder="여기에 답장해줘!" value={msg} onChange={onChange} />
+                    <Send onClick={onSubmit}>
+                        <img src={Sending} />
+                    </Send>
+                </Write>
+            )}
         </Total>
     )
 }

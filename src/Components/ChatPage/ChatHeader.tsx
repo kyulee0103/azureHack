@@ -44,6 +44,7 @@ const Option = styled.div`
     img {
         width: 24px;
         height: 24px;
+        visibility: hidden;
     }
     width: 45px;
     height: 45px;
@@ -56,7 +57,7 @@ const Option = styled.div`
 function ChatHeader(props: any) {
     const navigate = useNavigate()
     const onClick = () => {
-        navigate('/')
+        navigate(-1)
     }
     return (
         <Total>
