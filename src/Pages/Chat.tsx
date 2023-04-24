@@ -206,6 +206,27 @@ function Chat() {
         }
     })
 
+    useEffect(() => {
+        setWrite(false)
+        setWait(true)
+        axios({
+            method: 'post',
+            url: 'http://43.201.208.224:3000/chat',
+            data: {
+                chatRoomId: CHAT_ID,
+                input: '시작',
+            },
+        })
+            .then(function (response) {
+                console.log(response)
+                setWait(false)
+                setMsgList((prevMsgList) => [...prevMsgList, {data: response.data.data, time: '반가워요!', res: true}])
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }, [])
+
     return (
         <Total>
             <ChatHeader name="블럭이" />
