@@ -20,6 +20,12 @@ const LoginBox = styled.div`
 `
 
 function Hello() {
+    const REST_API_KEY = 'a82251b4020b624e88317d3bc4d37c63'
+    const REDIRECT_URI = 'https://azure-hack-git-main-kyulee0103.vercel.app/kakaoLogin'
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
+    const kakaoLogin = () => {
+        window.location.href = KAKAO_AUTH_URL
+    }
     const onClick = () => {
         axios({
             method: 'get',
@@ -44,7 +50,7 @@ function Hello() {
                 eyes={true}
                 under="3초컷 나의 미래 스포당하기"
             />
-            <LoginBox onClick={onClick}>
+            <LoginBox onClick={kakaoLogin}>
                 <img src={KaKao} alt="" />
             </LoginBox>
         </>
