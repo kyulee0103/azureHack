@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import Header from '../Components/Header'
 import styled from 'styled-components'
 
@@ -135,6 +136,24 @@ function Result() {
     const month = date.getMonth() + 1
     const day = date.getDate()
     const future = `${year}년 ${month}월 ${day}일`
+
+    useEffect(() => {
+        const script = document.createElement('script')
+        script.src = 'https://developers.kakao.com/sdk/js/kakao.js'
+        script.async = true
+
+        document.body.appendChild(script)
+
+        return () => {
+            document.body.removeChild(script)
+        }
+    }, [])
+
+    const sendKaKao = () => {
+        window.Kakao.Link.sendCustom({
+            templateId: 93063, // 내가 만든 템플릿 아이디를 넣어주면 된다
+        })
+    }
     return (
         <>
             <Header name={future} backExist={false} xExist={true} path1="/" path2="/" />
@@ -214,7 +233,7 @@ function Result() {
             <Block></Block>
             <Block></Block>
             <Block></Block>
-            <Btn>
+            <Btn onClick={sendKaKao}>
                 <p>공유하기</p>
             </Btn>
         </>

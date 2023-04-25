@@ -6,6 +6,9 @@ import router from './Router'
 import {CookiesProvider} from 'react-cookie'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+window.Kakao.init(process.env.REACT_APP_KAKAO_JS_KEY)
+window.Kakao.isInitialized()
 root.render(
     <React.StrictMode>
         <CookiesProvider>

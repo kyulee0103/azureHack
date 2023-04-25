@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Union from '../assets/hello.svg'
 import Open from '../assets/hello.png'
 import Smile from '../assets/smile.png'
+import Typewriter from 'typewriter-effect'
 
 const Total = styled.div`
     position: relative;
@@ -10,13 +11,13 @@ const Total = styled.div`
 const Box = styled.div`
     position: relative;
     width: 295px;
+    place-items: center;
     height: 144px;
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     p {
-        z-index: 1000;
         color: #0066ff;
         font-weight: 600;
         font-size: 17px;
@@ -33,12 +34,10 @@ const Box = styled.div`
         left: 50%;
         transform: translate(-50%, -50%);
         opacity: 1;
-        z-index: 1;
+        z-index: -1;
     }
 `
 const Name = styled.div`
-    /* background: #ffffff;
-    border: 1px solid #0066ff; */
     border-radius: 99px;
     display: flex;
     justify-content: center;
@@ -46,7 +45,7 @@ const Name = styled.div`
     position: absolute;
     right: 51px;
     bottom: 46px;
-    z-index: 3000;
+    z-index: 1;
     p {
         font-weight: 700;
         font-size: 16px;
@@ -81,21 +80,62 @@ type SayProps = {
     under: string
 }
 
+const Box2 = styled.div`
+    width: 230px;
+    place-items: center;
+    height: 144px;
+    z-index: 1000;
+    padding-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+`
+
 const Say: React.FC<SayProps> = ({line1, line2, num, eyes, under}) => {
     return (
         <>
             <Total>
                 <Box>
                     <img src={Union} alt=""></img>
-                    <p>{line1}</p>
-                    {num && <p>{line2}</p>}
+                    {eyes ? (
+                        <Box2>
+                            <Typewriter
+                                onInit={(typewriter) => {
+                                    typewriter
+                                        .typeString(
+                                            '<span style="color: #0066ff; font-weight: 600; font-size: 17px; z-index : 6000 "}>안녕 10년 후 너는 어떤 모습일까? </span>',
+                                        )
+                                        .pauseFor(1000)
+                                        .typeString(
+                                            '<span style="color: #0066ff; font-weight: 600; font-size: 17px; z-index : 6000 "}>궁금하지 않아? </span>',
+                                        )
+                                        .pauseFor(500)
+                                        .typeString(
+                                            '<span style="color: #0066ff; font-weight: 600; font-size: 17px; z-index : 6000 "}>내가 알려줄게!</span>',
+                                        )
+                                        .pauseFor(2500)
+                                        .start()
+                                }}
+                            ></Typewriter>
+                        </Box2>
+                    ) : (
+                        <Box2>
+                            <Typewriter
+                                onInit={(typewriter) => {
+                                    typewriter
+                                        .typeString(
+                                            '<span style="color: #0066ff; font-weight: 600; font-size: 17px; z-index : 6000 "}>채팅을 시작하기 전에 먼저 이름을 알려줘! </span>',
+                                        )
+                                        .pauseFor(2500)
+                                        .start()
+                                }}
+                            ></Typewriter>
+                        </Box2>
+                    )}
+
                     <Name>
                         <p>블럭이</p>
                     </Name>
                 </Box>
-                {/* <Name>
-                    <p>블럭이</p>
-                </Name> */}
             </Total>
             <Img>{eyes ? <img src={Open} alt="" /> : <img src={Smile} alt="" />}</Img>
             <Under>

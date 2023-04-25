@@ -27,7 +27,7 @@ const Btn = styled.div`
         font-size: 20px;
     }
 `
-const Form = styled.form`
+const Form = styled.div`
     text-align: center;
     input {
         width: 244px;
@@ -62,6 +62,7 @@ function Name() {
     }
 
     const onClick = () => {
+        console.log('je?')
         localStorage.setItem('name', name)
         axios({
             method: 'post',
