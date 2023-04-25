@@ -26,8 +26,6 @@ function Hello() {
     console.log(KAKAO_AUTH_URL)
     const kakaoLogin = () => {
         window.location.href = KAKAO_AUTH_URL
-    }
-    const onClick = () => {
         axios({
             method: 'get',
             url: 'http://43.201.208.224:3000/auth/kakao',
@@ -39,6 +37,18 @@ function Hello() {
                 console.log(error)
             })
     }
+    // const onClick = () => {
+    //     axios({
+    //         method: 'get',
+    //         url: 'http://43.201.208.224:3000/auth/kakao',
+    //     })
+    //         .then(function (response) {
+    //             console.log(response)
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error)
+    //         })
+    // }
     return (
         <>
             <Title>

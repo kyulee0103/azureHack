@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Header from '../../Components/Header'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -135,7 +135,14 @@ const Contents = styled.div`
 function Register() {
     const [nickname, setNickName] = useState('')
     const [cookies, setCookie] = useCookies(['token'])
-    console.log(cookies)
+    const token = cookies.token
+    // console.log(token)
+    // console.log(document.cookie)
+    // setCookie('token', token, {path: '/'})
+
+    useEffect(() => {
+        console.log(token)
+    }, [])
 
     const [gender, setGender] = useState<string>()
     const [grade, setGrade] = useState<number>()

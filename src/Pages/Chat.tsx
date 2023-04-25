@@ -147,7 +147,21 @@ const Grey2 = styled.div`
 type Msg = {data: string; time: any; res: boolean}
 
 function Chat() {
+    const MY_NAME = localStorage.getItem('name')
+    const [firstMsg, setFirstMsg] = useState<Msg[]>([])
+    const FIRST_CHAT = [
+        `${MY_NAME} 안녕! 난 블럭이야. 
+    요즘 진로가 고민이라며!
+    내가 너의 진로 고민을 해결해줄게! 
+    간단한 질문들에 답해주면 돼! 쉽지?
+    
+    나만 믿고 따라와! 
+    `,
+        `${MY_NAME}! 물어볼게 몇 개 있어`,
+        `너가 생각나는 것들 최대한 자유롭게 얘기해줘`,
+    ]
     const [msg, setMsg] = useState('')
+    const [firstStop, setFirstStop] = useState<boolean>(true)
     const [wait, setWait] = useState(false)
     const [write, setWrite] = useState(false)
     const location = useLocation()
@@ -180,7 +194,7 @@ function Chat() {
 
         axios({
             method: 'post',
-            url: 'http://43.201.208.224:3000/chat',
+            url: 'https://mungtage.site/chat',
             data: {
                 chatRoomId: CHAT_ID,
                 input: msg,
@@ -207,30 +221,105 @@ function Chat() {
     })
 
     useEffect(() => {
-        setWrite(false)
-        setWait(true)
+        const date = new Date()
+        let hour = date.getHours()
+        let min = date.getMinutes().toString()
+        let dayOrNight = 'am'
+        if (hour > 12) {
+            hour -= 12
+            dayOrNight = 'pm'
+        }
+        if (min.length < 2) {
+            min = '0' + min.toString()
+        }
+
+        const timeouts: any[] = []
+        timeouts.push(
+            setTimeout(() => {
+                setFirstMsg([{data: FIRST_CHAT[0], time: `${hour}:${min} ${dayOrNight}`, res: false}])
+            }, 500),
+        )
+        timeouts.push(
+            setTimeout(() => {
+                setFirstMsg((prevMsgList) => [
+                    ...prevMsgList,
+                    {data: FIRST_CHAT[1], time: `${hour}:${min} ${dayOrNight}`, res: false},
+                ])
+            }, 1500),
+        )
+        timeouts.push(
+            setTimeout(() => {
+                setFirstMsg((prevMsgList) => [
+                    ...prevMsgList,
+                    {data: FIRST_CHAT[2], time: `${hour}:${min} ${dayOrNight}`, res: false},
+                ])
+            }, 2500),
+        )
+        timeouts.push(
+            setTimeout(() => {
+                setWait(true)
+                axios({
+                    method: 'post',
+                    url: 'https://mungtage.site/chat',
+                    data: {
+                        chatRoomId: CHAT_ID,
+                        input: '시작',
+                    },
+                })
+                    .then(function (response) {
+                        console.log(response)
+                        setFirstStop(false)
+                        setWait(false)
+                        setMsgList((prevMsgList) => [
+                            ...prevMsgList,
+                            {data: response.data.data, time: `${hour}:${min} ${dayOrNight}`, res: true},
+                        ])
+                    })
+                    .catch(function (e) {
+                        console.log('this is error!')
+                        console.log(e)
+                    })
+            }, 3000),
+        )
+        return () => timeouts.forEach((timeout) => clearTimeout(timeout))
+    }, [])
+
+    const testing = () => {
         axios({
             method: 'post',
-            url: 'http://43.201.208.224:3000/chat',
+            url: 'https://mungtage.site/result',
             data: {
                 chatRoomId: CHAT_ID,
-                input: '시작',
+                input: '결과값 좀 보내줘',
+            },
+            headers: {
+                Authorization:
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDQ2ODZhOWZmYTQyNzcxYzNiM2Q2YjEiLCJzdGF0dXMiOiJwZW5kaW5nIiwiaWF0IjoxNjgyMzQ5MzY0LCJleHAiOjE2ODIzNTI5NjR9.4PhO8iYItigdoEroy3RoXKFufcBpTTPDjcxrwuwIskA',
             },
         })
             .then(function (response) {
+                console.log('결과값')
                 console.log(response)
-                setWait(false)
-                setMsgList((prevMsgList) => [...prevMsgList, {data: response.data.data, time: '반가워요!', res: true}])
             })
-            .catch(function (error) {
-                console.log(error)
+            .catch(function (e) {
+                console.log('this is error!')
+                console.log(e)
             })
-    }, [])
-
+    }
     return (
         <Total>
             <ChatHeader name="블럭이" />
             <ChatBox ref={scrollRef}>
+                {firstMsg.map((msg, idx) => {
+                    return (
+                        <ChatBot>
+                            <Grey>
+                                <p>{msg.data}</p>
+                            </Grey>
+                            <Time>{msg.time}</Time>
+                        </ChatBot>
+                    )
+                })}
                 {msgList.length >= 1 &&
                     msgList.map((message, idx) => {
                         return message.res ? (
@@ -265,8 +354,16 @@ function Chat() {
                         <Time>고민중...</Time>
                     </ChatBot>
                 )}
+                <button onClick={testing}>값을 보내줘</button>
             </ChatBox>
-            {wait ? (
+            {firstStop ? (
+                <Write2>
+                    <Input placeholder="채팅을 읽어줘..!" disabled />
+                    <Send2>
+                        <img src={Sending} alt="" />
+                    </Send2>
+                </Write2>
+            ) : wait ? (
                 <Write2>
                     <Input placeholder="답장을 고민하고 있어...!" disabled />
                     <Send2>

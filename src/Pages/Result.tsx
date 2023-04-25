@@ -8,13 +8,15 @@ const Name = styled.div`
     p {
         color: rgba(0, 0, 0, 0.25);
         font-weight: 700;
-        font-size: 20px;
+        font-size: 24px;
     }
 `
 const Line = styled.div`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
 `
 const Charteristic = styled.div`
     height: 30px;
@@ -60,7 +62,74 @@ const Detail = styled.div`
     }
 `
 
+const Box = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 19px;
+    width: 60px;
+    height: 74px;
+    background: linear-gradient(182.99deg, #0066ff -0.15%, #77e47c 98.36%);
+    border-radius: 5px;
+    p {
+        margin: 5px;
+    }
+`
+const Num = styled.p`
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 32px;
+`
+
+const Word = styled.p`
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+`
+const SemiTitle = styled.p`
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    align-items: center;
+    letter-spacing: 0.1em;
+    color: #808080;
+`
+const White = styled.div`
+    color: #0066ff;
+    border: 1px solid #0066ff;
+    border-radius: 30px;
+    background: #ffffff;
+    padding: 0px 11px;
+`
+const Blue = styled.div`
+    color: #0066ff;
+    background: rgba(0, 102, 255, 0.05);
+    border-radius: 30px;
+    padding: 0px 16px;
+`
+const Block = styled.div`
+    height: 30px;
+    width: 100%;
+`
+const Btn = styled.div`
+    background-color: ${({theme}: any) => theme.color.main};
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 66px;
+    p {
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 20px;
+    }
+`
+
 function Result() {
+    const MY_NAME = localStorage.getItem('name')
     const date = new Date()
     const year = date.getFullYear() + 10
     const month = date.getMonth() + 1
@@ -68,10 +137,10 @@ function Result() {
     const future = `${year}년 ${month}월 ${day}일`
     return (
         <>
-            <Header name={future} backExist={true} xExist={true} path1="/home" path2="home" />
+            <Header name={future} backExist={false} xExist={true} path1="/" path2="/" />
             <Top>
                 <Name>
-                    <p>김윤지 선생님</p>
+                    <p>{MY_NAME} 선생님</p>
                 </Name>
                 <Line>
                     <Charteristic color="#0066FF" style={{background: 'rgba(0, 102, 255, 0.25)'}}>
@@ -87,8 +156,9 @@ function Result() {
                     </Charteristic>
                 </Line>
             </Top>
+            <Block></Block>
             <Title>
-                <p>윤지의 미래 일기</p>
+                <p>{MY_NAME}의 미래 일기</p>
             </Title>
             <Diary></Diary>
             <Detail>
@@ -98,12 +168,55 @@ function Result() {
                     힐링하고🍿, 내일 수업 준비 완료!👩‍🏫 내일도 화이팅해서 가르치고 배울 준비 완료!💪
                 </span>
             </Detail>
+            <Block></Block>
             <Title>
                 <p>너는 이런 사람인거 같아</p>
             </Title>
-            <Title>
-                <p>다른 직업이 궁금해?</p>
-            </Title>
+            <Line>
+                <Box>
+                    <Num>1</Num>
+                    <Word>예술형</Word>
+                </Box>
+                <Box>
+                    <Num>2</Num>
+                    <Word>탐구형</Word>
+                </Box>
+                <Box>
+                    <Num>3</Num>
+                    <Word>관습형</Word>
+                </Box>
+            </Line>
+            <Block></Block>
+            <Line>
+                <SemiTitle>강점포인트</SemiTitle>
+                <White>
+                    <p># 키워드</p>
+                </White>
+                <Blue>
+                    <p># 키워드</p>
+                </Blue>
+                <White>
+                    <p># 키워드</p>
+                </White>
+            </Line>
+            <Line>
+                <SemiTitle>약점포인트</SemiTitle>
+                <Blue>
+                    <p># 키워드</p>
+                </Blue>
+                <White>
+                    <p># 키워드</p>
+                </White>
+                <Blue>
+                    <p># 키워드</p>
+                </Blue>
+            </Line>
+            <Block></Block>
+            <Block></Block>
+            <Block></Block>
+            <Btn>
+                <p>공유하기</p>
+            </Btn>
         </>
     )
 }

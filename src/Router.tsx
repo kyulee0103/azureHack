@@ -10,6 +10,8 @@ import Again from './Pages/Again'
 import Register from './Pages/Login/Register'
 import Result from './Pages/Result'
 import PCHello from './Pages/PCHello'
+import NewMain from './Pages/NewMain'
+import Name from './Pages/Name'
 
 const router = createBrowserRouter([
     isMobile
@@ -17,7 +19,9 @@ const router = createBrowserRouter([
               path: '/',
               element: <App />,
               children: [
-                  {path: '', element: <Hello />},
+                  {path: '', element: <NewMain />},
+                  {path: '/name', element: <Name />},
+                  {path: '/hello', element: <Hello />},
                   {
                       path: '/main',
                       element: <Main />,
