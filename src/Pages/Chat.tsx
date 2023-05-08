@@ -221,6 +221,19 @@ function Chat() {
     })
 
     useEffect(() => {
+        axios({
+            method: 'get',
+            url: 'https://mungtage.site/chat-room/counsel/',
+            params: {
+                id: CHAT_ID,
+            },
+        })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
         const date = new Date()
         let hour = date.getHours()
         let min = date.getMinutes().toString()
